@@ -1,0 +1,30 @@
+package org.libucr.course;
+
+public enum ClassType {
+    LEC,
+    DIS,
+    LAB,
+    LCA,
+    CLN,
+    COL,
+    CON,
+    FLD,
+    IND,
+    INT,
+    MCE,
+    PRC,
+    RES,
+    SCR,
+    SEM,
+    STU,
+    THE,
+    TPA,
+    TUT,
+    WRK,
+    ACT,
+    DEM,
+    ODL,
+    W_S,
+    NONE,
+}
+

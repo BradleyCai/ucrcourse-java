@@ -1,0 +1,3 @@
+[submodule "jni/libucrcourse"]
+	path = jni/libucrcourse
+	url = https://github.com/BradleyCai/libucrcourse.git

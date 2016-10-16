@@ -1,12 +1,17 @@
+# Compiled artifacts
+target
 *.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
 *.jar
-*.war
-*.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Project artifacts
+*.iml
+.idea
+.ycm_extra_conf.py*
+
+# Misc
 hs_err_pid*
+.*.swp
+*~
+*#
+*.bak
+
