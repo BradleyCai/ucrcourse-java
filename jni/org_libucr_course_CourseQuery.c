@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdlib.h>
 
 #include "org_libucr_course_CourseQuery.h"
@@ -32,6 +33,18 @@ static jobject get_quarter_enum(JNIEnv *env, enum quarter quarter)
 	klass = (*env)->FindClass(env, "Lorg/libucr/course/Quarter;");
 	fid = (*env)->GetFieldID(env, klass, field_name, "Lorg/libucr/course/Quarter;");
 	return (*env)->GetObjectField(env, klass, fid);
+}
+
+static void set_error(JNIEnv *env, jobject self)
+{
+	jclass klass;
+	jfieldID fid;
+
+	klass = (*env)->GetObjectClass(env, self);
+	fid = (*env)->GetFieldID(env, klass, "error", "I");
+	if (!fid) return;
+
+	(*env)->SetIntField(env, self, fid, errno);
 }
 
 /*
@@ -110,6 +123,11 @@ JNIEXPORT jobjectArray JNICALL Java_org_libucr_course_CourseQuery_runQueryIntern
 	(*env)->ReleaseStringUTFChars(env, course_title, course_title_c);
 	(*env)->ReleaseStringUTFChars(env, instructor, instructor_c);
 	(*env)->ReleaseStringUTFChars(env, course_number, course_number_c);
+
+	if (!results) {
+		set_error(env, self);
+		return NULL;
+	}
 
 	/* TODO */
 

@@ -15,6 +15,7 @@ public class CourseQuery {
     private final BreadthCourse breadth;
     private final boolean graduateQuantitative;
     private final boolean[] days;
+    private int error;
 
     protected CourseQuery(Quarter quarter, short year, SubjectArea subjectArea, String courseTitle,
             String instructor, String courseNumber, short startHour, CourseStatus status,
@@ -93,7 +94,8 @@ public class CourseQuery {
     }
 
     public Course[] run() {
-        return runQueryInternal(
+        Course[] results =
+            runQueryInternal(
                 quarter.ordinal(),
                 year,
                 subjectArea.ordinal(),
@@ -108,6 +110,14 @@ public class CourseQuery {
                 breadth.ordinal(),
                 graduateQuantitative,
                 days);
+
+        if (results == null) {
+            int errsave = error;
+            error = 0;
+            throw new CourseException(CourseException.ErrorCode.getError(errsave));
+        }
+
+        return results;
     }
 
     private native Course[] runQueryInternal(int quarter, short year, int subjectArea,
