@@ -11,14 +11,10 @@ public class Course {
     private final CourseDate finalExam;
     private final String coreqs;
     private final String prereqs;
-    private final String scheduleNotes;
-    private final String gradeType;
-    private final String catalogDescription;
 
     protected Course(String courseNumber, short section, int callNumber, String courseTitle,
             String instructor, ClassType type, boolean[] days, CourseDate finalExam,
-            String coreqs, String prereqs, String scheduleNotes, String gradeType,
-            String catalogDescription) {
+            String coreqs, String prereqs) {
         this.courseNumber = courseNumber;
         this.section = section;
         this.callNumber = callNumber;
@@ -29,9 +25,46 @@ public class Course {
         this.finalExam = finalExam;
         this.coreqs = coreqs;
         this.prereqs = prereqs;
-        this.scheduleNotes = scheduleNotes;
-        this.gradeType = gradeType;
-        this.catalogDescription = catalogDescription;
+    }
+
+    public String getCourseNumber() {
+        return courseNumber;
+    }
+
+    public short getSection() {
+        return section;
+    }
+
+    public int getCallNumber() {
+        return callNumber;
+    }
+
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public ClassType getClassType() {
+        return type;
+    }
+
+    public boolean[] getDays() {
+        return days.clone();
+    }
+
+    public CourseDate getFinalExamDate() {
+        return finalExam;
+    }
+
+    public String getCoreqs() {
+        return coreqs;
+    }
+
+    public String getPrereqs() {
+        return prereqs;
     }
 
     public static class Builder {
@@ -45,9 +78,6 @@ public class Course {
         private CourseDate finalExam;
         private String coreqs;
         private String prereqs;
-        private String scheduleNotes;
-        private String gradeType;
-        private String catalogDescription;
 
         public Builder() {
             courseTitle = "";
@@ -55,15 +85,11 @@ public class Course {
             days = new boolean[Day.values().length];
             coreqs = "";
             prereqs = "";
-            scheduleNotes = "";
-            gradeType = "";
-            catalogDescription = "";
         }
 
         public Course build() {
             return new Course(courseNumber, section, callNumber, courseTitle,
-                    instructor, type, days, finalExam, coreqs, prereqs,
-                    scheduleNotes, gradeType, catalogDescription);
+                    instructor, type, days, finalExam, coreqs, prereqs);
         }
 
         public Builder setCourseNumber(String courseNumber) {
@@ -145,33 +171,6 @@ public class Course {
             }
 
             this.prereqs = prereqs;
-            return this;
-        }
-
-        public Builder setScheduleNotes(String notes) {
-            if (notes == null) {
-                throw new IllegalArgumentException("String may not be null.");
-            }
-
-            this.scheduleNotes = notes;
-            return this;
-        }
-
-        public Builder setGradeType(String gradeType) {
-            if (gradeType == null) {
-                throw new IllegalArgumentException("String may not be null.");
-            }
-
-            this.gradeType = gradeType;
-            return this;
-        }
-
-        public Builder setCatalogDescription(String description) {
-            if (description == null) {
-                throw new IllegalArgumentException("String may not be null.");
-            }
-
-            this.catalogDescription = description;
             return this;
         }
     }
